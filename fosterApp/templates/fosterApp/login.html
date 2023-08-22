@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'styles/abbie.css' %}">
+</head>
+
+<body>
+
+    <h1 class="text-center"> LOGIN </h1>
+
+    <div class="login-container">
+        <fieldset class="login-form">
+            <legend>
+                Login
+            </legend>
+            <form>
+
+                <label>Username : </label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <label>Password : </label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button class="login-btn"> <a href="admin.html">LOGIN</a></button>
+                <input type="checkbox" checked="checked"> 
+                <label for="rem">Remember me</label><br><br>
+                <a href="#">Forgot password? </a>
+                <a class="active" href="abbie.html">cancle</a>
+    
+    
+            </form>
+        </fieldset>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+{% extends 'admin-dashboard.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor</title>
+</head>
+
+<body>
+    {% block content %}
+    <div class="container">
+        <fieldset>
+            <legend>Update Sponsor</legend>
+            <form action="" method="post" class="form-control">
+                {% csrf_token %}
+                <div class="row m-sm-2">
+                    <div class="col col-md-4">
+                        <label class="form-label" for="">Full Name</label>
+                        <input class="form-control" type="text" value="{{ sponsor.fullName }}" name="fname"
+                            placeholder="Enter full name" required>
+                    </div>
+                    <div class="col col-md-4">
+                        <label class="form-label" for="">National ID</label>
+                        <input class="form-control" type="text" value="{{ sponsor.sponsorId }}" name="idNo"
+                            placeholder="Enter ID Number" required>
+
+                    </div>
+
+                </div>
+                <div class="row m-sm-2">
+                    <div class="col col-md-4">
+                        <label class="form-label" for="">Email</label>
+                        <input class="form-control" type="email" value="{{ sponsor.sponsorEmail }}"  name="email" placeholder="e.g abc@gmail.com" required>
+
+                    </div>
+                    <div class="col col-md-4">
+                        <label class="form-label" for="">Phone Number</label>
+                        <input class="form-control" type="tel" value="{{ sponsor.contact }}"  name="telNo" placeholder="e.g +254700102312" required>
+                    </div>
+                </div>
+
+                <div class="row m-sm-2">
+                    <div class="col col-md-4">
+                        <label class="form-label" for="">Occupation</label>
+                        <input class="form-control" type="text" value="{{ sponsor.occupation }}"  name="occupation" placeholder="Enter occupation"
+                            required>
+
+                    </div>
+                </div>
+                <button class="btn btn-success col-md-3 mt-2 ms-lg-4" type="submit">Submit</button>
+                <!-- <div class="row m-sm-2">
+                    <div class="col">
+                        
+                    </div>
+                    
+                </div>                -->
+
+            </form>
+        </fieldset>
+    </div>
+
+    {% endblock %}
+
+</body>

@@ -1,0 +1,60 @@
+{% extends 'admin-dashboard.html' %}
+
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Registered Children
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Child Name</th>
+                    <th>Gender</th>
+                    <th>Guardian</th>
+                    <th>Sponsor</th>
+                    <th>House Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tfoot>
+
+                
+                <tr>
+                    <th>Child Name</th>
+                    <th>Gender</th>
+                    <th>Guardian</th>
+                    <th>Sponsor</th>
+                    <th>House Name</th>
+                    <th>Actions</th>
+                </tr>
+            </tfoot>
+            <tbody>
+               
+                
+                    {% for child in children %}
+                    <tr>
+                        <td>{{ child.fullName }}</td>
+                        <td>{{ child.gender }}</td>
+                        <td>{{ child.guardianId }}</td>
+                        <td>{{ child.sponsor }}</td>
+                        <td>{{ child.houseName }}</td>
+                        <td><a href="{% url 'delete' child.pk %}">Delete</a>
+                            <a href="{% url 'update-child' child.pk %}">Update</a>
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+                    
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+                    

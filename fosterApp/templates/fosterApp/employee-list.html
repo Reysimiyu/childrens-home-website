@@ -1,0 +1,48 @@
+{% extends 'admin-dashboard.html' %}
+
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Employees
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>ID No:</th>
+                    <th>Email</th>
+                    <th>Phone Number:</th>
+                    <th>Department</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+               
+                
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.fullName }}</td>
+                        <td>{{ employee.employeeId }}</td>
+                        <td>{{ employee.emplEmail }}</td>
+                        <td>{{ employee.telNo }}</td>
+                        <td>{{ employee.department }}</td>
+                        <td>Null</td>
+                        
+                    </tr>
+                    
+                    {% endfor %}
+                    
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+                    

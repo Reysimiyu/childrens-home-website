@@ -1,0 +1,91 @@
+{% extends 'admin-dashboard.html' %}
+
+{% block content %}
+<div class="container">
+
+    <fieldset>
+        <legend>Add Child</legend>
+        <form action="" method="post" class="form-control">
+            {% csrf_token %}
+            <div class="row m-sm-2">
+                <div class="col col-md-4">
+                    <label class="form-label" for="">Full Name</label>
+                    {{ form.fullName }}
+                </div>
+                <!-- <div class="col col-md-2">
+                    <label class="form-label" for="">Date of Birth</label>
+                    <input class="form-control" type="date" name="dob" required>
+                </div>
+                <div class="col col-md-2">
+                    <label class="form-label" for="">Gender</label>
+                    <select class="form-control form-select" name="gender">
+                        <option selected="--">-----</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">other</option>
+                    </select>
+
+                </div> -->
+            </div>
+
+            <div class="row m-sm-2">
+                <!-- <div class="col col-md-4">
+
+                    <label class="form-label" for="">Date of Admission</label>
+                    <input class="form-control" type="date" name="doa" required>
+
+                </div> -->
+                <div class="col col-md-4">
+                    <label class="form-label" for="">Parent/Guardian's Name</label>
+                    {{ form.guardian }}
+                </div>
+            </div>
+
+            <div class="row m-sm-2">
+                <div class="col col-md-4">
+                    <label class="form-label" for="">Sponsor</label>
+                    <input class="form-control" type="text" value="{{ child.sponsor.fullName }}" name="sponsor" id="exampleDatalist" list="sponsor_list">
+                    <datalist id="sponsor_list">
+                        <select id="child_sponsor">
+
+                            {% for sponsor in sponsors %}
+                            <option value="{{ sponsor.fullName }}">{{ sponsor.fullName }} </option>
+                            {% endfor %}
+
+
+                        </select>
+
+                    </datalist>
+
+                </div>
+
+                <div class="col col-md-4 ">
+                    <label class="form-label" for="">House </label>
+                    <input class="form-control form-select" type="text" value="{{child.houseName.name}} " name="house" list="house_list" required>
+                    <datalist id="house_list">
+                        <select id="child_house">
+                            {% for house in houses %}
+                            <option value="{{ house.name }}">{{ house.name }}</option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </datalist>
+
+                </div>
+            </div>
+            <div class="row m-sm-2">
+                <div class="col-md-6 ">
+                    <label for="" class="form-label">Address</label>
+                    {{ form.address }}
+                </div>
+
+            </div>
+            <button class="btn btn-success col-md-3 mb-4 mt-2 ms-lg-4" type="submit">Submit</button>
+
+        </form>
+    </fieldset>
+</div>
+
+{% endblock %}

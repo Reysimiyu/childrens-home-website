@@ -1,0 +1,13 @@
+{% extends 'admin-dashboard.html' %}
+
+
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <p> Are you sure want to delete {{ obj }}?</p>
+        <button class="btn btn-danger" type="submit">Confirm</button>
+        <button><a href="{% url 'child-list' %}">Cancel</a></button>
+    </form>
+</div>
+{% endblock %}

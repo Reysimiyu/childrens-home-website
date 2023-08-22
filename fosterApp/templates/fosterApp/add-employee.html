@@ -1,0 +1,56 @@
+{% extends 'admin-dashboard.html' %}
+
+{% block content %}
+<div class="container">
+    <fieldset>
+        <legend>Add Employee</legend>
+        <form action="" method="post" class="form-control">
+            {% csrf_token %}
+            <div class="row m-sm-2">
+                <div class="col col-md-4">
+                    <label class="form-label" for="" class="form-label">Full Name</label>
+                    <input  class="form-control" type="text" name="fname" placeholder="Enter full name" required>
+                </div>
+                <div class="col col-md-4">
+                    <label class="form-label" for="">National ID</label>
+                    <input class="form-control" type="number" name="idNo" placeholder="Enter ID Number" required>
+
+                </div>
+
+            </div>
+
+            <div class="row m-sm-2">
+                <div class="col col-md-4">
+                    <label class="form-label" for="">Email</label>
+                    <input class="form-control" type="email" name="email" placeholder="e.g abc@gmail.com" required>
+                </div>
+                <div class="col col-md-4">
+                    <label class="form-label" for="">Phone Number</label>
+                    <input class="form-control" type="tel" name="telNo" placeholder="e.g +254700102312" required>
+                    
+                </div>
+            </div>          
+          <div class="row m-sm-2">
+            <div class="col col-md-4">
+                <label class="form-label" for="">Department</label>
+                <select class="form-control form-select" name="department" id="">
+                    {% for department in departments %}
+                    <option value="{{department}}">{{ department }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+          </div>
+          <!-- <div class="row ms-lg-5">
+            <div class="col"> -->
+                <button class="btn btn-success col-md-3 mt-2 ms-lg-4" type="submit">Submit</button>
+            <!-- </div>
+          </div> -->
+            
+        </form>
+    </fieldset>
+
+
+</div>
+
+{% endblock %}

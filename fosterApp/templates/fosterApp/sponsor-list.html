@@ -1,0 +1,50 @@
+{% extends 'admin-dashboard.html' %}
+
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Sponsors
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>ID No:</th>
+                    <th>Email</th>
+                    <th>Phone Number:</th>
+                    <th>Occupation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+               
+                
+                    {% for sponsor in sponsors %}
+                    <tr>
+                        <td>{{ sponsor.fullName }}</td>
+                        <td>{{ sponsor.sponsorId }}</td>
+                        <td>{{ sponsor.sponsorEmail }}</td>
+                        <td>{{ sponsor.contact }}</td>
+                        <td>{{ sponsor.occupation }}</td>
+                        <td><a href="{% url 'delete-sponsor' sponsor.id %}">Delete</a>
+                            <a href="{% url 'update-sponsor' sponsor.id %}">Update</a>                        
+                        </td>
+                        
+                    </tr>
+                    
+                    {% endfor %}
+                    
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+                    
