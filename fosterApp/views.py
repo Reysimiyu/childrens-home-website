@@ -1,19 +1,58 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from .models import *
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import *
 
 # Create your views here.
 
 
-def homePage(request):
+def homePage(request):    
+    return render(request, "frontEnd/index.html")
+
+# login function
+def userLogin(request):
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'invalid username or passowrd')
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('adminHome')
+    
+    return render(request, 'fosterApp/login.html')
+
+# logout view
+@login_required(login_url='login')
+def userLogout(request):
+    if User.is_authenticated:
+        logout(request)
+        return redirect('home')
+
+
+# admin landing page
+@login_required(login_url='login')
+def adminHome(request):
     children = Child.objects.all()
     context = {"children": children}
-    return render(request, "fosterApp/admin-index.html", context)
+    return render(request,"fosterApp/admin-index.html",context)      
+
 
 
 # add system adminstrator
+@login_required(login_url='login')
 def addAdmin(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -32,8 +71,8 @@ def addAdmin(request):
         return redirect("home")
     return render(request, "fosterApp/register.html")
 
-
 # Register new child
+@login_required(login_url='login')
 def addChild(request):
     form = ChildForm()
     sponsors = Sponsor.objects.all()
@@ -85,6 +124,7 @@ def addChild(request):
 
 
 # fetch registered children
+@login_required(login_url='login')
 def fetchChildren(request):
     children = Child.objects.all()
     context = {"children": children}
@@ -92,8 +132,7 @@ def fetchChildren(request):
 
 
 # update child
-
-
+@login_required(login_url='login')
 def updateChild(request, pk):
     child = Child.objects.get(id=pk)
     form = ChildForm(instance=child)
@@ -121,6 +160,7 @@ def updateChild(request, pk):
 
 
 # deleteChild
+@login_required(login_url='login')
 def deleteChild(request, pk):
     child = Child.objects.get(id=pk)
     if request.method == "POST":
@@ -130,8 +170,7 @@ def deleteChild(request, pk):
 
 
 # add sponsor
-
-
+@login_required(login_url='login')
 def addSponsor(request):
     if request.method == "POST":
         fname = request.POST["fname"]
@@ -152,12 +191,14 @@ def addSponsor(request):
 
 
 # fetching sponsors
+@login_required(login_url='login')
 def getSponsors(request):
     sponsors = Sponsor.objects.all()
     context = {"sponsors": sponsors}
     return render(request, "fosterApp/sponsor-list.html", context)
 
-
+# update sponsor details
+@login_required(login_url='login')
 def updateSponsor(request, pk):
     sponsor = Sponsor.objects.get(id=pk)
     
@@ -175,6 +216,7 @@ def updateSponsor(request, pk):
     return render(request, "fosterApp/update-sponsor.html",context)
 
 # deleteSponsor
+@login_required(login_url='login')
 def deleteSponsor(request, pk):
     sponsor = Sponsor.objects.get(id=pk)
 
@@ -183,7 +225,8 @@ def deleteSponsor(request, pk):
         return redirect("sponsor-list")
     return render(request, "fosterApp/delete.html", {"obj": sponsor})
 
-
+# add employee
+@login_required(login_url='login')
 def addEmployee(request):
     departments = Department.objects.all()
     if request.method == "POST":
@@ -207,7 +250,22 @@ def addEmployee(request):
 
 
 # fetching employees
+@login_required(login_url='login')
 def getEmployees(request):
     employees = Employee.objects.all()
     context = {"employees": employees}
     return render(request, "fosterApp/employee-list.html", context)
+
+
+
+def send_email(request):
+    if request.method == 'POST':
+        subject = 'Foster Care Enquiry'
+        message = request.POST['message']
+        from_email = request.POST['email']
+        recipient_list = ['reinhardsiminyu1@gmail.com']
+
+        send_mail(subject, message, from_email, recipient_list)
+        return redirect('login')
+    else:
+        return render(request, 'frontEnd/index.html')
